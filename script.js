@@ -40,6 +40,7 @@ function flatten(arr) {
         var div = "<table border='0' >"
         for(i=0;i<finalNum.length;i++){
             
+            /*
             div = div + "<tr><td class='tdbor'>"+ ("000"+finalNum[i]).slice(-2)
                       + "</td>   <td class='tdemp'></td>   <td  class='tdbor'>" + ("000"+finalNum[i]).slice(-2)
                       + "</td>   <td></td>   <td class='tdemp'>"
@@ -49,6 +50,21 @@ function flatten(arr) {
                       + "</td> </tr></table>" 
                       + "</tr>"
                       + "<tr><td class='tdemp' colspan='6'></td></tr>"
+            */
+            
+            div = div + "<tr><td class='tdemp'>"
+                      + "<table border='0'><tr> <td  class='tdsm'>"+ txt + ("000"+finalNum[i]).slice(-3)
+                      + "</td> </tr> <tr> <td class='tdemp'></td> </tr> <tr> <td  class='tdsm'>"+ txt +  ("000"+finalNum[i]).slice(-3)
+                      + "</td> </tr></table>" 
+                      + "</td>"   
+                      + "<td class='tdemp'>"
+                      
+                      + "<table border='0'><tr> <td  class='tdsm'>"+ txt + ("000"+finalNum[i]).slice(-3)
+                      + "</td> </tr> <tr> <td class='tdemp'></td> </tr> <tr> <td  class='tdsm'>"+ txt +  ("000"+finalNum[i]).slice(-3)
+                      + "</td> </tr></table>" 
+                      + "</td>"   
+                      + "</tr>"
+                      + "<tr><td class='tdemp' colspan='6'></td></tr>"            
                     
         }
         div = div + "</table>"
