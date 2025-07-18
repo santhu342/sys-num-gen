@@ -3,47 +3,65 @@
 <head>
   <title>System Number Generator</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-  
-  
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 80px;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+    }
+
+    .form-title {
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .btn-primary {
+      border-radius: 25px;
+    }
+  </style>
 </head>
 <body>
-  
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand" href="#">ANITS</a>
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
-    </li>
-    
-  </ul>
-</nav>
-<br /><br /><br /><br /><br />
-<div class="container">
-<h3> LAB System Number Generator </h3>
 
- <form >
-  <div class="form-group">
-    <label for="labname">Department/Lab Name/</label>
-    <input type="text" class="form-control" placeholder="Ex:- ANITS/MECH/CADLAB/" id="labname" />
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">ANITS</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="form-container">
+    <h4 class="text-center form-title">💻 Lab System Number Generator</h4>
+
+    <form>
+      <div class="form-group">
+        <label for="labname">Department / Lab Name</label>
+        <input type="text" class="form-control" id="labname" placeholder="e.g. ANITS/MECH/CADLAB/" />
+      </div>
+
+      <div class="form-group">
+        <label for="num">Number List</label>
+        <input type="text" class="form-control" id="num" placeholder="e.g. 1-5,9,15,20-25" />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Generate</button>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="num">Numbers List</label>
-    <input type="text" class="form-control" placeholder="Enter Number (1-5,9,15,20-25)" id="num" />
-  </div> 
-  <button type="button" id="btnSubmit" class="btn btn-primary">Submit</button>
-</form>
-</div>
 
 </body>
 </html>
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="./script.js"></script>
-<script>
-
-</script>

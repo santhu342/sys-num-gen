@@ -1,84 +1,53 @@
 const arrayRange = (start, stop, step) =>
-    Array.from({ length: (stop - start) / step + 1 }, (value, index) => start + index * step );
-function flatten(arr) {
-  return arr.reduce(function (flat, toFlatten) {
-    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-  }, []);
-}
-    $(document).ready(function(){
-        $("#btnSubmit").click(function(){
-            const txt = $("#labname").val()
-            
-            var num = $("#num").val()
-            var finalNum = []
-            if(num == "" || txt == "")
-            swal.fire("Fail","No data found","error")
-            else
-            {
-                num = num.split(",")
-                for(i=0;i<num.length;i++){
-                    var val = num[i].split("-")
-                    if(val == ""){}
-                    else
-                    if(val.length == 2)
-                    {
-                        val.sort(function(a, b){return a-b})
-                        var val1 = parseInt(val[0]),val2 = parseInt(val[1])
-                        finalNum.push(arrayRange(val1, val2, 1))
-                    }
-                    else
-                    finalNum.push(parseInt(val))
-                }
-                
-                
-        w = '1000', h = '800',left = (screen.width/2)-(w/2),top = (screen.height/2)-(h/2);
-        var title = "Feedback Report View";
-        var option = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width="+w+", height="+h+", top="+top+", left="+left;
-        
-        finalNum = (Array.from(new Set(flatten(finalNum).sort(function(a, b){return a-b}))))
-        
-        var div = "<table border='0' >"
-        for(i=0;i<finalNum.length;i++){
-            
-            /*
-            div = div + "<tr><td class='tdbor'>"+ ("000"+finalNum[i]).slice(-2)
-                      + "</td>   <td class='tdemp'></td>   <td  class='tdbor'>" + ("000"+finalNum[i]).slice(-2)
-                      + "</td>   <td></td>   <td class='tdemp'>"
-                      
-                      + "<table border='0'><tr> <td  class='tdsm'>"+ txt + ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr> <tr> <td class='tdemp'></td> </tr> <tr> <td  class='tdsm'>"+ txt +  ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr></table>" 
-                      + "</tr>"
-                      + "<tr><td class='tdemp' colspan='6'></td></tr>"
-            */
-            
-            div = div + "<tr><td class='tdemp'>"
-                      + "<table border='0'><tr> <td  class='tdsm'>"+ txt + ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr> <tr> <td class='tdemp'></td> </tr> <tr> <td  class='tdsm'>"+ txt +  ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr></table>" 
-                      + "</td>"   
-                      + "<td class='tdemp'>"
-                      
-                      + "<table border='0'><tr> <td  class='tdsm'>"+ txt + ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr> <tr> <td class='tdemp'></td> </tr> <tr> <td  class='tdsm'>"+ txt +  ("000"+finalNum[i]).slice(-3)
-                      + "</td> </tr></table>" 
-                      + "</td>"   
-                      + "</tr>"
-                      + "<tr><td class='tdemp' colspan='6'></td></tr>"            
-                    
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+
+const flatten = arr => arr.reduce((flat, item) =>
+    flat.concat(Array.isArray(item) ? flatten(item) : item), []);
+
+$(document).ready(function () {
+    $("#btnSubmit").click(function () {
+        const labName = $("#labname").val().trim();
+        let numbers = $("#num").val().trim();
+
+        if (!labName || !numbers) {
+            return Swal.fire("Fail", "No data found", "error");
         }
-        div = div + "</table>"
-        
-        div = div + "<style>"
-                  +  ".tdbor{border: 7px solid;padding: 60px; font-size: 55px; font-weight: 900; text-align: center;}"
-                  +  ".tdsm{border: 5px solid;padding: 8px 100px; font-weight: 900;font-size: 25px; text-transform: uppercase;}"
-                  +  ".tdemp{padding: 20px 20px;}"
-                  +  "</style>"
-            w = window.open("about:blank",title,option)
-            w.document.open();
-            w.document.write(div);
-            
+
+        let finalNumbers = [];
+
+        numbers.split(",").forEach(item => {
+            let range = item.split("-");
+            if (range.length === 2) {
+                let [start, end] = range.map(Number).sort((a, b) => a - b);
+                finalNumbers.push(arrayRange(start, end, 1));
+            } else {
+                finalNumbers.push(parseInt(item));
             }
-        })
-    })
- 
+        });
+
+        finalNumbers = Array.from(new Set(flatten(finalNumbers).sort((a, b) => a - b)));
+
+        let table = "<table border='0'>";
+        finalNumbers.forEach(num => {
+            let formatted = ("000" + num).slice(-3);
+            let block = `
+                <table border='0'>
+                    <tr><td class='tdsm'>${labName}${formatted}</td></tr>
+                    <tr><td class='tdemp'></td></tr>
+                    <tr><td class='tdsm'>${labName}${formatted}</td></tr>
+                </table>`;
+            table += `<tr><td class='tdemp'>${block}</td><td class='tdemp'>${block}</td></tr>
+                      <tr><td class='tdemp' colspan='6'></td></tr>`;
+        });
+        table += "</table>";
+
+        let style = `
+            <style>
+                .tdsm { border: 5px solid; padding: 8px 100px; font-weight: 900; font-size: 25px; text-transform: uppercase; }
+                .tdemp { padding: 20px 20px; }
+            </style>`;
+
+        let win = window.open("", "Feedback Report View", "width=1000,height=800,scrollbars=yes");
+        win.document.write(table + style);
+    });
+});
